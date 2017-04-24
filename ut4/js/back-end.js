@@ -14,14 +14,14 @@ back.System = function () {
     this.system = [back.amnexis, back.asterix, back.asuracenturix, back.obelix,
             back.panoramix, back.abraracurcix, back.canarix];
 };
-back.User = function (userName, nombreCuenta, tipoCuenta, saldo, userPts, accDate, tiempo,
+back.User = function (userName, nombreCuenta, tipoCuenta, saldo, puntos, accDate, tiempo,
         server) {
     "use strict";
     this.userName = userName;
     this.nombreCuenta = nombreCuenta;
     this.tipoCuenta = tipoCuenta;
     this.saldo = saldo;
-    this.userPts = userPts;
+    this.puntos = puntos;
     this.accDate = accDate;
     this.tiempo = tiempo;
     this.server = server;
@@ -100,7 +100,7 @@ back.System.prototype.getServerPoints = function () {
     "use strict";
     return this.system.map(function (value) {
         return value.users.map(function (user) {
-            return user.userPts;
+            return user.puntos;
         });
     });
 };
@@ -162,12 +162,12 @@ back.System.prototype.separaSecciones = function () {
     counter = [countLess, countMiddle, countGreater];
     return counter;
 };
-back.puntosCorrectos = function (userPts, tipoCuenta) {
+back.puntosCorrectos = function (puntos, tipoCuenta) {
     "use strict";
     var index = 0;
-    if (userPts !== "") {
-        while (userPts[index]) {
-            if (Number.isNaN(parseInt(userPts[index]))) {
+    if (puntos !== "") {
+        while (puntos[index]) {
+            if (Number.isNaN(parseInt(puntos[index]))) {
                 index = undefined;
                 throw new Error(back.USER_POINTS_ERROR);
             }
@@ -176,16 +176,16 @@ back.puntosCorrectos = function (userPts, tipoCuenta) {
     } else {
         switch (tipoCuenta) {
         case "user":
-            userPts = 50;
+            puntos = 50;
             break;
         case "premium":
-            userPts = 100;
+            puntos = 100;
             break;
         default:
-            userPts = 10;
+            puntos = 10;
         }
     }
-    return userPts;
+    return puntos;
 };
 back.esFechaCorrecta = function (accDate) {
     "use strict";

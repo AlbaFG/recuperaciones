@@ -74,7 +74,7 @@ front.creaUsuario = function () {
         var tipoCuenta = $("tipoCuenta").value;
         var saldo = $("saldo").value;
         var accDate = $("accDate").value;
-        var userPts = $("userPts").value;
+        var puntos = $("puntos").value;
         var tiempo = $("tiempo").value;
         var server = $("selectedServer").value;
         var targetServer = system.datosServidor($("selectedServer").value)[0];
@@ -82,7 +82,7 @@ front.creaUsuario = function () {
         system.nombreUnico(nombreCuenta);
         back.nombreUsuarioCorrecto(userName);
         back.saldoCorrecto(saldo);
-        userPts = back.puntosCorrectos(userPts, tipoCuenta);
+        puntos = back.puntosCorrectos(puntos, tipoCuenta);
         if (tiempo) {
       tiempo = (back.setConexionTime(back.isValidTime(tiempo)));
   } else {
@@ -94,7 +94,7 @@ front.creaUsuario = function () {
             nombreCuenta,
             tipoCuenta,
             saldo,
-            userPts,
+            puntos,
             accDate,
             tiempo,
             server
@@ -149,7 +149,7 @@ front.cuentasCreadas = function (table, value) {
     row.insertCell(1).innerHTML = value.userName;
     row.insertCell(2).innerHTML = value.accDate;
     row.insertCell(3).innerHTML = value.saldo;
-    row.insertCell(4).innerHTML = value.userPts;
+    row.insertCell(4).innerHTML = value.puntos;
     row.insertCell(5).innerHTML = value.tiempo;
     row.insertCell(6).innerHTML = value.tipoCuenta;
     arrayServers.map(function (value) {
@@ -194,7 +194,7 @@ front.cuentasBorradas = function (table, value) {
     row.insertCell(1).innerHTML = value.userName;
     row.insertCell(2).innerHTML = value.accDate;
     row.insertCell(3).innerHTML = value.saldo;
-    row.insertCell(4).innerHTML = value.userPts;
+    row.insertCell(4).innerHTML = value.puntos;
     row.insertCell(5).innerHTML = value.tiempo;
     row.insertCell(6).innerHTML = value.tipoCuenta;
     row.insertCell(7).innerHTML = value.server;
