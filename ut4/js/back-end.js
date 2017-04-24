@@ -4,7 +4,7 @@ var back = {};
 back.deletedUsers = [];
 back.ACC_NAME_ERROR = "Nombre cuenta invalido";
 back.USERNAME_ERROR = "Nombre usuario invalido";
-back.BALANCE_ERROR = "Saldo invalido";
+back.ERROR_SALDO = "Saldo invalido";
 back.DATE_ERROR = "Fecha invalida";
 back.REPEATED_NAME = "La cuenta ya existe";
 back.USER_POINTS_ERROR = "Puntos invalidos";
@@ -14,13 +14,13 @@ back.System = function () {
     this.system = [back.amnexis, back.asterix, back.asuracenturix, back.obelix,
             back.panoramix, back.abraracurcix, back.canarix];
 };
-back.User = function (userName, nombreCuenta, tipoCuenta, balance, userPts, accDate, tiempo,
+back.User = function (userName, nombreCuenta, tipoCuenta, saldo, userPts, accDate, tiempo,
         server) {
     "use strict";
     this.userName = userName;
     this.nombreCuenta = nombreCuenta;
     this.tipoCuenta = tipoCuenta;
-    this.balance = balance;
+    this.saldo = saldo;
     this.userPts = userPts;
     this.accDate = accDate;
     this.tiempo = tiempo;
@@ -81,19 +81,19 @@ back.nombreUsuarioCorrecto = function (name) {
         throw new Error(back.USERNAME_ERROR);
     }
 };
-back.saldoCorrecto = function (balance) {
+back.saldoCorrecto = function (saldo) {
     "use strict";
     var index = 0;
-    if (balance !== "") {
-        while (balance[index]) {
-            if (Number.isNaN(parseInt(balance[index]))) {
+    if (saldo !== "") {
+        while (saldo[index]) {
+            if (Number.isNaN(parseInt(saldo[index]))) {
                 index = undefined;
-                throw new Error(back.BALANCE_ERROR);
+                throw new Error(back.ERROR_SALDO);
             }
             index += 1;
         }
     } else {
-        back.BALANCE_ERROR;
+        back.ERROR_SALDO;
     }
 };
 back.System.prototype.getServerPoints = function () {
@@ -263,27 +263,27 @@ back.add = function (a, b) {
 };
 back.System.prototype.totalSaldo = function () {
     "use strict";
-    var totalBalance = this.system.map(function (value) {
+    var saldoTotal = this.system.map(function (value) {
         return value.users.map(function (valor) {
-            var balance;
-            if (!Number.isNaN(parseInt(valor.balance))) {
-                balance = parseInt(valor.balance);
+            var saldo;
+            if (!Number.isNaN(parseInt(valor.saldo))) {
+                saldo = parseInt(valor.saldo);
             } else {
-                balance = 0;
+                saldo = 0;
             }
-            return balance;
+            return saldo;
         });
     });
-    totalBalance = totalBalance.map(function (value) {
-        var balance = value[0];
-        if (balance) {
-            balance = value.reduce(back.add);
+    saldoTotal = saldoTotal.map(function (value) {
+        var saldo = value[0];
+        if (saldo) {
+            saldo = value.reduce(back.add);
         } else {
-            balance = 0;
+            saldo = 0;
         }
-        return balance;
+        return saldo;
     });
-    return totalBalance.reduce(back.add);
+    return saldoTotal.reduce(back.add);
 };
 back.System.prototype.totalUsuarios = function () {
     "use strict";

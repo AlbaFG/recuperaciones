@@ -72,7 +72,7 @@ front.creaUsuario = function () {
         var nombreCuenta = $("nombreCuenta").value;
         var userName = $("userName").value;
         var tipoCuenta = $("tipoCuenta").value;
-        var balance = $("balance").value;
+        var saldo = $("saldo").value;
         var accDate = $("accDate").value;
         var userPts = $("userPts").value;
         var tiempo = $("tiempo").value;
@@ -81,7 +81,7 @@ front.creaUsuario = function () {
         back.nombreCuentaCorrecto(nombreCuenta);
         system.nombreUnico(nombreCuenta);
         back.nombreUsuarioCorrecto(userName);
-        back.saldoCorrecto(balance);
+        back.saldoCorrecto(saldo);
         userPts = back.puntosCorrectos(userPts, tipoCuenta);
         if (tiempo) {
       tiempo = (back.setConexionTime(back.isValidTime(tiempo)));
@@ -93,7 +93,7 @@ front.creaUsuario = function () {
             userName,
             nombreCuenta,
             tipoCuenta,
-            balance,
+            saldo,
             userPts,
             accDate,
             tiempo,
@@ -148,7 +148,7 @@ front.cuentasCreadas = function (table, value) {
     row.insertCell(0).innerHTML = value.nombreCuenta;
     row.insertCell(1).innerHTML = value.userName;
     row.insertCell(2).innerHTML = value.accDate;
-    row.insertCell(3).innerHTML = value.balance;
+    row.insertCell(3).innerHTML = value.saldo;
     row.insertCell(4).innerHTML = value.userPts;
     row.insertCell(5).innerHTML = value.tiempo;
     row.insertCell(6).innerHTML = value.tipoCuenta;
@@ -193,7 +193,7 @@ front.cuentasBorradas = function (table, value) {
     row.insertCell(0).innerHTML = value.nombreCuenta;
     row.insertCell(1).innerHTML = value.userName;
     row.insertCell(2).innerHTML = value.accDate;
-    row.insertCell(3).innerHTML = value.balance;
+    row.insertCell(3).innerHTML = value.saldo;
     row.insertCell(4).innerHTML = value.userPts;
     row.insertCell(5).innerHTML = value.tiempo;
     row.insertCell(6).innerHTML = value.tipoCuenta;
@@ -296,12 +296,12 @@ front.borraCompletamente = function () {
 };
 front.generaSaldo = function () {
     "use strict";
-    var balance = system.totalSaldo();
+    var saldo = system.totalSaldo();
     var users = system.totalUsuarios();
     if (users === 0) {
-        $("avgBalance").value = front.ERROR_SIN_USUARIO;
+        $("mediaSado").value = front.ERROR_SIN_USUARIO;
     } else {
-        $("avgBalance").value = Math.round(balance / users);
+        $("mediaSado").value = Math.round(saldo / users);
     }
 };
 front.comparaCuentas = function (a, b) {
@@ -368,7 +368,6 @@ front.calculateSystemTime = function () {
 
 
 /*
-
 front.calculateSystemTime = function () {
     "use strict";
     var users = system.totalUsuarios();
