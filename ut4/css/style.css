@@ -1,0 +1,19 @@
+body{
+    background-color: rgb( 148, 236, 124 );
+    font-family:sans-serif;
+}
+h1{
+    text-transform: uppercase;
+}
+.userdataField{
+    border-radius: 1em;
+    line-height: 1.7em;
+}
+#create{
+    background-color:rgb(0,0,0);
+    color:rgb(255,255,255);
+    text-transform: uppercase;
+    border-radius: 1em;
+    margin-left: 15em;
+    margin-top:2em;
+}

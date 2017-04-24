@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Gestion Usuario</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/back-end.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/front-end.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/test.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body onload="front.generateDate()">
+    <h1>Gestion de Usuarios</h1>
+    <section class="web">
+        <fieldset class="userdataField">
+            <legend><b>Crear usuario</b></legend>
+            <form id="form" class="myForm" method="post">
+                <label for="">Nombre Cuenta</label>
+                <input type="text" name="nombreCuenta" id="nombreCuenta" required/><br>
+                <label for="">Nombre Usuario</label>
+                <input type="text" name="userName" id="userName" required/><br>
+                <label for="">Fecha</label>
+                <input type="text" name="accDate" id="accDate" required/><br>
+                <label for="">Saldo</label>
+                <input type="text" name="balance" id="balance"/><br>
+                <label for="">Tipo Cuenta:</label>
+                <select class="tipoCuenta" id="tipoCuenta">
+                    <optgroup label="">
+                        <option value="newbie">Newbie</option>
+                        <option value="premium">Premium</option>
+                        <option value="user">User</option>
+                    </optgroup>
+                </select><br>
+                <label for="">Puntos</label>
+                <input type="text" name="userPts" id="userPts"/><br>
+                <label for="">Tiempo</label>
+                <input type="text" name="tiempo" id="tiempo"/><br>
+                <label for="">Seleccione servidor</label>
+                <select id="selectedServer" class="selectedServer">
+                    <optgroup label="">
+                        <option value="Abraracurcix">Abraracurcix</option>
+                        <option value="Amnexis">Amnexis</option>
+                        <option value="Asterix">Asterix</option>
+                        <option value="Asuracenturix">Asuracenturix</option>
+                        <option value="Canarix">Canarix</option>
+                        <option value="Obelix">Obelix</option>
+                        <option value="Panoramix">Panoramix</option>
+                    </optgroup>
+                </select><br>
+                <input type="button" id="create" class="create" value="Crear" onclick="front.creaUsuario()"/>
+                <label for="" id="mssg" class="mssg"></label><br>
+            </form><br>
+        </fieldset>
+        <fieldset class="serverDataFilter">
+            <legend><b>Filtro Servidor</b></legend>
+            <form>
+                <select id="filtroServidor" class="filtroServidor" onchange="front.fillData()">
+                    <option value="Abraracurcix">Abraracurcix</option>
+                    <option value="Amnexis">Amnexis</option>
+                    <option value="Asterix">Asterix</option>
+                    <option value="Asuracenturix">Asuracenturix</option>
+                    <option value="Canarix">Canarix</option>
+                    <option value="Obelix">Obelix</option>
+                    <option value="Panoramix">Panoramix</option>
+                </select>
+                <label for="accTypeFilter">Tipo de Cuenta</label>
+                <select id="accTypeFilter" class="accTypeFilter" onchange="front.fillData()">
+                    <optgroup label="Cuentas">
+                        <option value="all">Todas</option>
+                        <option value="newbie">Newbie</option>
+                        <option value="premium">Premium</option>
+                        <option value="user">User</option>
+                    </optgroup>
+                </select>
+            </form><br><br>
+            <section id="serverData" class="serverData">
+                <table>
+                    <tr>
+                        <th id="nombreServidor" class="nombreServidor">Nombre servidor:</th>
+                        <th id="serverIP" class="serverIP">IP:</th>
+                        <th id="serverOS" class="serverOS">SO:</th>
+                        <th id="serverDate" class="serverDate">Fecha alta</th>
+                    </tr>
+                </table>
+            </section><br>
+            <fieldset id="muestraTramos">
+                <legend>Tramos</legend>
+                <form name="tramos" id="tramos">
+                    <label>Tramo 1:</label><p id="tramo1"></p>
+                    <label>Tramo 2:</label><p id="tramo2"></p>
+                    <label>Tramo 3:</label><p id="tramo3"></p>
+                    <br>
+                    <button type="button" id="estadistica" value="estadistica" onclick="front.estadisticas();">Estadística</button>
+                </form>
+            </fieldset>
+            <form name="media">
+                <label for="">Media saldo</label>
+                <input type="text" id="avgBalance" class="avgBalance" disabled>
+                <input type="button" class="calculateMedia" value="Calcular" onclick="front.generaSaldo()">
+                <label for="">Tiempo total</label>
+                <input type="text" id="tiempoTotal" class="tiempo" disabled>
+                <input type="button" class="totalTiempo" value="Calcular Tiempo" onclick="front.calculateSystemTime()">
+            </form><br>
+        </fieldset>
+        <fieldset class="serverAccountsData">
+            <legend><b>Cuentas por cada servidor</b></legend>
+            <label for="server">Seleccione la ordenación por tipo de cuenta:</label>
+            <input type="button" id="sortAccounts" class="sortAccounts" value="Orden descendente" onclick="front.sortAccounts()">
+            <input type="button" id="sortAccounts" class="sortAccounts" value="Orden ascendente" onclick="front.sortAccountsAsc()">
+            <input type="button" id="deleteUser" class="deleteUser" value="Borrar usuario" onclick="front.borraUsuario()">
+            <br><br>
+            <table id="accountsTab">
+                <tr>
+                    <th>Nombre cuenta</th>
+                    <th>Nombre usuario</th>
+                    <th>Fecha</th>
+                    <th>Saldo</th>
+                    <th>Puntos</th>
+                    <th>Tiempo</th>
+                    <th>Tipo cuenta</th>
+                    <th>Mover al servidor</th>
+                    <th>Selector</th>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset class="deletedAccountsData">
+            <label>Cuentas borradas</label>
+            <input type="button" id="deleteUserDefinitively" class="deleteUserDefinitively" value="Eliminar completamente" onclick="front.borraCompletamente()">
+            <input type="button" id="createAgain" class="createAgain" value="Recuperar usuario" onclick="front.recuperaCuentas()"/>
+            <br><br>
+            <table id="deletedAccountsTab">
+                <tr>
+                    <th>Nombre cuenta</th>
+                    <th>Nombre usuario</th>
+                    <th>Fecha</th>
+                    <th>Saldo</th>
+                    <th>Puntos</th>
+                    <th>Tiempo</th>
+                    <th>Tipo cuenta</th>
+                    <th>Mover al servidor</th>
+                    <th>Selector</th>
+                </tr>
+            </table>
+        </fieldset>
+        <footer>
+        </footer>
+    </section>
+</body>
+
+</html>
